@@ -112,30 +112,36 @@ class dash_screen(object):
         self.searchbar.move(275, 5)
 
         self.map_container = QtWidgets.QGroupBox(self.dash_tab)
-        self.map_container.setGeometry(QtCore.QRect(240, 40, 400, 300))
-        self.maps_objects = self.create_QScrollArea("dash_tab", "maps_QScrollArea", "vertical_layout", 835, 85, 360, 595)
+        self.map_container.setGeometry(QtCore.QRect(240, 40, 595, 500))
+        self.maps_objects = self.create_QScrollArea("dash_tab", "maps_QScrollArea", "vertical_layout", 240, 40, 595, 500)
         self.maps = self.maps_objects[0]
         self.maps_layout = self.maps_objects[1]
         self.maps_scrollArea = self.maps_objects[2]
 
         self.populate_with_all()
+        self.maps_scrollArea.setWidget(self.maps)
+        self.maps_scrollArea.verticalScrollBar().setSliderPosition(0)
 
     def connect_and_retrieve_all(self, db_file, table_name):
-        conn = None
-        try:
-            conn = sqlite3.connect(db_file)
-        except Error as e:
-            print(e)
+        conn = sqlite3.connect(db_file)
         cur = conn.cursor()
-        SQLString = """SELECT * FROM sqlite_master"""
+        SQLString = "SELECT * FROM " + table_name
         cur.execute(SQLString)
-
         rows = cur.fetchall()
-        for row in rows:
-            print(row)
+
+        return rows
 
     def populate_with_all(self):
-        self.connect_and_retrieve_all('new_file', 'PARK_NAMES')
+        park_list = self.connect_and_retrieve_all('identifier.sqlite', 'PARK_NAMES')
+        print(park_list)
+        for indiv_park in park_list:
+            self.event_object = QtWidgets.QGroupBox(self.maps)
+            self.event_object.setFixedSize(325, 100)
+            self.event_object.setLayout(QtWidgets.QVBoxLayout())
+            self.activities_label = QtWidgets.QLabel(self.event_object)
+            self.activities_label.setText("Activities")
+            self.activities_label.move(10, 10)
+            self.maps_layout.addWidget(self.event_object)
 
     def create_QScrollArea(self, container, object_name, layout, x_coordinate, y_coordinate, fixed_width, min_length):
         self.scrollArea_object_container = QtWidgets.QWidget()

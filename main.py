@@ -1,5 +1,4 @@
 import io
-
 from PyQt5 import QtWidgets
 import location, dash, create_widgets
 
@@ -40,29 +39,6 @@ class ui_main_window(object):
         self.tab_widget.addTab(self.saved_tab, "Saved")
 
         self.map_frame = QtWidgets.QVBoxLayout(self.central_widget)
-        # Define location 1 and 2
-        # Durango = (37.2753, -107.880067)
-        # SF = (37.7749, -122.419416)
-        # # Create the map
-        # fig = gmaps.figure()
-        # # create the layer
-        # layer = gmaps.directions.Directions(Durango, SF, mode='car')
-        # # Add the layer
-        # fig.add_layer(layer)
-
-
-        # m = folium.Map(
-        #     location=[45.5236, -122.6750], tiles="Stamen Toner", zoom_start=13
-        # )
-        #
-        # data = io.BytesIO()
-        # fig.open()
-        #
-        # w = QtWebEngineWidgets.QWebEngineView()
-        # w.setHtml(data.getvalue().decode())
-        # w.resize(640, 480)
-        # w.show()
-        # self.map_frame.addWidget(w)
 
         Screen1 = dash.dash_screen(self.dash_tab)
         Screen1.control_dashboard()
