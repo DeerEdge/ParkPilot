@@ -5,11 +5,11 @@ create table PARK_NAMES
 (
     ID             SERIAL
         primary key,
-    NAME           VARCHAR(200)  not null,
-    DESCRIPTION    VARCHAR(2000) not null,
-    STATE          VARCHAR(50)   not null,
-    CITY           VARCHAR(50)   not null,
-    TYPE           VARCHAR(50)   not null,
+    NAME           VARCHAR(200),
+    DESCRIPTION    VARCHAR(2000),
+    STATE          VARCHAR(50),
+    CITY           VARCHAR(50),
+    TYPE           VARCHAR(50),
     WEBSITE        VARCHAR(500),
     LATITUDE       NUMERIC(11, 8),
     LONGITUDE      NUMERIC(11, 8),
