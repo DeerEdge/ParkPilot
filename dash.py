@@ -107,6 +107,10 @@ class dash_screen(object):
         self.pet_checkbox.setObjectName("Pet_CheckBox")
         self.pet_checkbox.move(10, 230)
 
+        self.searchbar = QtWidgets.QLineEdit(self.dash_tab)
+        self.searchbar.resize(300, 30)
+        self.searchbar.move(275, 5)
+
         self.map_container = QtWidgets.QGroupBox(self.dash_tab)
         self.map_container.setGeometry(QtCore.QRect(240, 40, 400, 300))
         self.maps_objects = self.create_QScrollArea("dash_tab", "maps_QScrollArea", "vertical_layout", 835, 85, 360, 595)
