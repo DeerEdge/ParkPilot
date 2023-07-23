@@ -144,16 +144,14 @@ class dash_screen(object):
             self.park_info_container.setLayout(QtWidgets.QVBoxLayout())
 
             self.park_title = self
-            self.activities_label = QtWidgets.QLabel(self.park_info_container)
-            self.activities_label.setText("Activities")
-            self.activities_label.move(10, 30)
+            self.activities_label = self.create_QLabel("park_info", "park_gbox", str(indiv_park[1]), 10, 10, 250, 40)
 
             self.maps_layout.addWidget(self.park_info_container)
 
     def create_QLabel(self, container, object_name, text, x_coordinate, y_coordinate, width, length):
         # Creates and associates QLabel to specified container
-        if container == "login_widget_container":
-            self.QLabel = QtWidgets.QLabel(self.login_widget_container)
+        if container == "park_info":
+            self.QLabel = QtWidgets.QLabel(self.park_info_container)
         elif container == "central_widget":
             self.QLabel = QtWidgets.QLabel(self.central_widget)
         elif container == "dashboard_tab":
@@ -171,23 +169,6 @@ class dash_screen(object):
         elif container == "event":
             self.QLabel = QtWidgets.QLabel(self.event_object)
 
-        # Administrator
-        elif container == "admin_dashboard_tab":
-            self.QLabel = QtWidgets.QLabel(self.admin_dashboard_tab)
-        elif container == "admin_events_tab":
-            self.QLabel = QtWidgets.QLabel(self.admin_events_tab)
-        elif container == "maps_tab":
-            self.QLabel = QtWidgets.QLabel(self.maps_tab)
-        elif container == "admin_statistics_tab":
-            self.QLabel = QtWidgets.QLabel(self.admin_statistics_tab)
-        elif container == "admin_student_view_tab":
-            self.QLabel = QtWidgets.QLabel(self.admin_student_view_tab)
-        elif container == "admin_statistics_tab":
-            self.QLabel = QtWidgets.QLabel(self.admin_statistics_tab)
-        elif container == "rand":
-            self.QLabel = QtWidgets.QLabel(self.rand_win_gb)
-        elif container == "top":
-            self.QLabel = QtWidgets.QLabel(self.top_win_gb)
         self.QLabel.setWordWrap(True)
         self.QLabel.setObjectName(object_name)
         self.QLabel.setText(text)
