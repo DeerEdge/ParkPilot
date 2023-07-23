@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
 from PyQt5 import QtWebEngineWidgets
 import folium
 import io
@@ -12,7 +12,12 @@ class maps_screen(object):
         self.control_maps()
 
     def control_maps(self):
-        layout = QtWidgets.QVBoxLayout(self.maps_tab)
+        self.map_container = QtWidgets.QGroupBox(self.maps_tab)
+        self.map_container.setGeometry(QtCore.QRect(0, 0, 850, 500))
+        self.map_container.setEnabled(True)
+        self.map_container.setFlat(True)
+
+        layout = QtWidgets.QVBoxLayout(self.map_container)
         df = pd.read_csv('nationalparks.csv', usecols=['longitude', 'latitude', 'details', ])
         df.columns = ['Longitude', 'Latitude', 'Name']
 
@@ -38,7 +43,7 @@ class maps_screen(object):
         webView = QtWebEngineWidgets.QWebEngineView()
         webView.setHtml(data.getvalue().decode())
         layout.addWidget(webView)
-        self.maps_tab.setLayout(layout)
+        self.map_container.setLayout(layout)
 
 
 
