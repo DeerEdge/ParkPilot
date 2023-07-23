@@ -252,3 +252,8 @@ QComboBox#Activities_Dropdown {
     border: 1px black;
     border-radius: 2px;
 }
+
+QComboBox#Distance_Dropdown {
+    border: 1px black;
+    border-radius: 2px;
+}

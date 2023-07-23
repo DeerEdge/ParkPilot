@@ -73,6 +73,7 @@ class dash_screen(object):
         self.features_dropdown.addItem("Lake/River")
         self.features_dropdown.addItem("Ocean")
         self.features_dropdown.addItem("Desert")
+        self.features_dropdown.addItem("Grassland")
         self.features_dropdown.resize(130, 40)
         self.features_dropdown.move(70, 100)
 
@@ -97,15 +98,19 @@ class dash_screen(object):
         self.activities_dropdown.resize(130, 40)
         self.activities_dropdown.move(70, 150)
 
-        self.wheelchair_checkbox = QtWidgets.QCheckBox(self.groupbox)
-        self.wheelchair_checkbox.setText("Wheelchair Accessible")
-        self.wheelchair_checkbox.setObjectName("Wheelchair_CheckBox")
-        self.wheelchair_checkbox.move(10, 200)
+        self.distance_label = QtWidgets.QLabel(self.groupbox)
+        self.distance_label.setText("Distance:")
+        self.distance_label.move(10, 211)
 
-        self.pet_checkbox = QtWidgets.QCheckBox(self.groupbox)
-        self.pet_checkbox.setText("Pet Friendly")
-        self.pet_checkbox.setObjectName("Pet_CheckBox")
-        self.pet_checkbox.move(10, 230)
+        self.distance_dropdown = QtWidgets.QComboBox(self.groupbox)
+        self.distance_dropdown.setObjectName("Distance_Dropdown")
+        self.distance.dropdown.addItem("No Preference")
+        self.distance_dropdown.addItem("50 miles")
+        self.distance_dropdown.addItem("100 miles")
+        self.distance_dropdown.addItem("500 miles")
+        self.distance_dropdown.addItem("Custom")
+        self.distance_dropdown.resize(130, 40)
+        self.distance_dropdown.move(70, 200)
 
         self.searchbar = QtWidgets.QLineEdit(self.dash_tab)
         self.searchbar.resize(300, 30)
@@ -138,9 +143,11 @@ class dash_screen(object):
             self.event_object = QtWidgets.QGroupBox(self.maps)
             self.event_object.setFixedSize(325, 100)
             self.event_object.setLayout(QtWidgets.QVBoxLayout())
+
             self.activities_label = QtWidgets.QLabel(self.event_object)
             self.activities_label.setText("Activities")
             self.activities_label.move(10, 10)
+
             self.maps_layout.addWidget(self.event_object)
 
     def create_QScrollArea(self, container, object_name, layout, x_coordinate, y_coordinate, fixed_width, min_length):
