@@ -1,5 +1,7 @@
 import io
 from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QStatusBar
+
 import location, dash, create_widgets
 
 # import gmaps
@@ -46,6 +48,8 @@ class ui_main_window(object):
         Screen2 = location.maps_screen(self.maps_tab)
         Screen2.control_maps()
 
+        self.status_bar = QtWidgets.QStatusBar(main_window)
+        main_window.setStatusBar(self.status_bar)
 
 if __name__ == "__main__":
     import sys

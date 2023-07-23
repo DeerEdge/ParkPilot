@@ -1,6 +1,11 @@
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui, QtCore, QtWidgets
 import sqlite3
+import urllib
+import requests
+
+from PyQt5.QtGui import QPixmap, QImage
+
 
 class dash_screen(object):
     def __init__(self, tab):
@@ -11,8 +16,8 @@ class dash_screen(object):
     def control_dashboard(self):
         self.groupbox = QtWidgets.QGroupBox(self.dash_tab)
         self.groupbox.setObjectName("GroupBox_Dash")
-        self.groupbox.resize(210, 540)
-        self.groupbox.move(15, 40)
+        self.groupbox.resize(220, 540)
+        self.groupbox.move(12, 40)
 
         self.filters_label = QtWidgets.QLabel(self.groupbox)
         self.filters_label.setText("Filter By:")
@@ -57,7 +62,7 @@ class dash_screen(object):
         self.state_dropdown.addItem("Washington")
         self.state_dropdown.addItem("West Virginia")
         self.state_dropdown.addItem("Wyoming")
-        self.state_dropdown.resize(130, 40)
+        self.state_dropdown.resize(140, 40)
         self.state_dropdown.move(70, 50)
 
         self.features_label = QtWidgets.QLabel(self.groupbox)
@@ -73,7 +78,7 @@ class dash_screen(object):
         self.features_dropdown.addItem("Lake/River")
         self.features_dropdown.addItem("Ocean")
         self.features_dropdown.addItem("Desert")
-        self.features_dropdown.resize(130, 40)
+        self.features_dropdown.resize(140, 40)
         self.features_dropdown.move(70, 100)
 
         self.activities_label = QtWidgets.QLabel(self.groupbox)
@@ -94,7 +99,7 @@ class dash_screen(object):
         self.activities_dropdown.addItem("Hunting")
         self.activities_dropdown.addItem("Swimming")
         self.activities_dropdown.addItem("Skiing/Snowboarding")
-        self.activities_dropdown.resize(130, 40)
+        self.activities_dropdown.resize(140, 40)
         self.activities_dropdown.move(70, 150)
 
         self.distance_label = QtWidgets.QLabel(self.groupbox)
@@ -108,7 +113,7 @@ class dash_screen(object):
         self.distance_dropdown.addItem("100 miles")
         self.distance_dropdown.addItem("500 miles")
         self.distance_dropdown.addItem("Custom")
-        self.distance_dropdown.resize(130, 40)
+        self.distance_dropdown.resize(140, 40)
         self.distance_dropdown.move(70, 200)
 
         self.searchbar = QtWidgets.QLineEdit(self.dash_tab)
@@ -116,8 +121,8 @@ class dash_screen(object):
         self.searchbar.move(275, 5)
 
         self.map_container = QtWidgets.QGroupBox(self.dash_tab)
-        self.map_container.setGeometry(QtCore.QRect(240, 40, 595, 500))
-        self.maps_objects = self.create_QScrollArea("dash_tab", "maps_QScrollArea", "vertical_layout", 240, 40, 595, 500)
+        self.map_container.setGeometry(QtCore.QRect(244, 40, 595, 540))
+        self.maps_objects = self.create_QScrollArea("dash_tab", "maps_QScrollArea", "vertical_layout", 244, 40, 595, 540)
         self.maps = self.maps_objects[0]
         self.maps_layout = self.maps_objects[1]
         self.maps_scrollArea = self.maps_objects[2]
@@ -140,11 +145,52 @@ class dash_screen(object):
         print(park_list)
         for indiv_park in park_list:
             self.park_info_container = QtWidgets.QGroupBox(self.maps)
-            self.park_info_container.setFixedSize(550, 200)
+            self.park_info_container.setFixedSize(568, 200)
             self.park_info_container.setLayout(QtWidgets.QVBoxLayout())
 
-            self.park_title = self
-            self.activities_label = self.create_QLabel("park_info", "park_gbox", str(indiv_park[1]), 10, 10, 250, 40)
+            # url = str(indiv_park[-1])
+            # # data = urllib(url).read()
+            # # pixmap = QPixmap()
+            # # pixmap.loadFromData(data)
+            # image = QImage()
+            # image.loadFromData(requests.get(url).content)
+            # self.attraction_image = QtWidgets.QLabel(self.park_info_container)
+            # self.attraction_image.setPixmap(QPixmap(image))
+            # self.attraction_image.setFixedSize(220, 220)
+            # self.attraction_image.show()
+
+            self.park_img = QtWidgets.QLabel(self.park_info_container)
+            image_address = "assets/0 - Acadia.jpeg"
+            self.park_img.setPixmap(QtGui.QPixmap(image_address))
+            self.park_img.setScaledContents(True)
+            self.park_img.move(10, 10)
+            self.park_img.setFixedSize(180, 180)
+            self.park_img.show()
+
+            self.park_title_label = self.create_QLabel("park_info", "park_gbox_title", str(indiv_park[1]) + " - " + str(indiv_park[3]), 200, 5, 250, 40)
+            self.park_distance_label = self.create_QLabel("park_info", "park_dist_label", "100 Miles Away", 470, 5, 250, 40)
+            # self.park_loc_label = self.create_QLabel("park_info", "park_gbox", str(indiv_park[3]), 110, 25, 250, 40)
+            self.output_logs = QtWidgets.QPlainTextEdit(self.park_info_container)
+            self.output_logs.setFixedSize(328, 140)
+            self.output_logs.move(200, 50)
+            self.output_logs.setPlainText("     " + str(indiv_park[2]))
+            self.output_logs.setReadOnly(True)
+
+            self.website_button = QtWidgets.QToolButton(self.park_info_container)
+            self.website_button.setGeometry(531, 50, 32, 32)
+            self.website_button.setText("↗︎")
+
+            self.resource1_button = QtWidgets.QToolButton(self.park_info_container)
+            self.resource1_button.setGeometry(531, 85, 32, 32)
+            self.resource1_button.setText("↗︎")
+
+            self.resource2_button = QtWidgets.QToolButton(self.park_info_container)
+            self.resource2_button.setGeometry(531, 120, 32, 32)
+            self.resource2_button.setText("↗︎")
+
+            self.resource3_button = QtWidgets.QToolButton(self.park_info_container)
+            self.resource3_button.setGeometry(531, 155, 32, 32)
+            self.resource3_button.setText("↗︎")
 
             self.maps_layout.addWidget(self.park_info_container)
 
