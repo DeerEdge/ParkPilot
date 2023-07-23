@@ -9,10 +9,18 @@ class dash_screen(object):
         self.control_dashboard()
 
     def control_dashboard(self):
+        self.main_logo = QtWidgets.QLabel(self.dash_tab)
+        self.pixmap = QtGui.QPixmap('logo.png')
+        self.main_logo.setPixmap(self.pixmap)
+        self.main_logo.setScaledContents(True)
+        self.main_logo.resize(210, 68)
+        self.main_logo.move(15, 0)
+
+
         self.groupbox = QtWidgets.QGroupBox(self.dash_tab)
         self.groupbox.setObjectName("GroupBox_Dash")
-        self.groupbox.resize(210, 540)
-        self.groupbox.move(15, 40)
+        self.groupbox.resize(210, 340)
+        self.groupbox.move(15, 70)
 
         self.filters_label = QtWidgets.QLabel(self.groupbox)
         self.filters_label.setText("Filter By:")
