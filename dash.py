@@ -73,7 +73,6 @@ class dash_screen(object):
         self.features_dropdown.addItem("Lake/River")
         self.features_dropdown.addItem("Ocean")
         self.features_dropdown.addItem("Desert")
-        self.features_dropdown.addItem("Grassland")
         self.features_dropdown.resize(130, 40)
         self.features_dropdown.move(70, 100)
 
@@ -98,19 +97,15 @@ class dash_screen(object):
         self.activities_dropdown.resize(130, 40)
         self.activities_dropdown.move(70, 150)
 
-        self.distance_label = QtWidgets.QLabel(self.groupbox)
-        self.distance_label.setText("Distance:")
-        self.distance_label.move(10, 211)
+        self.wheelchair_checkbox = QtWidgets.QCheckBox(self.groupbox)
+        self.wheelchair_checkbox.setText("Wheelchair Accessible")
+        self.wheelchair_checkbox.setObjectName("Wheelchair_CheckBox")
+        self.wheelchair_checkbox.move(10, 200)
 
-        self.distance_dropdown = QtWidgets.QComboBox(self.groupbox)
-        self.distance_dropdown.setObjectName("Distance_Dropdown")
-        self.distance.dropdown.addItem("No Preference")
-        self.distance_dropdown.addItem("50 miles")
-        self.distance_dropdown.addItem("100 miles")
-        self.distance_dropdown.addItem("500 miles")
-        self.distance_dropdown.addItem("Custom")
-        self.distance_dropdown.resize(130, 40)
-        self.distance_dropdown.move(70, 200)
+        self.pet_checkbox = QtWidgets.QCheckBox(self.groupbox)
+        self.pet_checkbox.setText("Pet Friendly")
+        self.pet_checkbox.setObjectName("Pet_CheckBox")
+        self.pet_checkbox.move(10, 230)
 
         self.searchbar = QtWidgets.QLineEdit(self.dash_tab)
         self.searchbar.resize(300, 30)
@@ -140,15 +135,61 @@ class dash_screen(object):
         park_list = self.connect_and_retrieve_all('identifier.sqlite', 'PARK_NAMES')
         print(park_list)
         for indiv_park in park_list:
-            self.event_object = QtWidgets.QGroupBox(self.maps)
-            self.event_object.setFixedSize(325, 100)
-            self.event_object.setLayout(QtWidgets.QVBoxLayout())
+            self.park_info_container = QtWidgets.QGroupBox(self.maps)
+            self.park_info_container.setFixedSize(550, 200)
+            self.park_info_container.setLayout(QtWidgets.QVBoxLayout())
 
-            self.activities_label = QtWidgets.QLabel(self.event_object)
+            self.park_title = self
+            self.activities_label = QtWidgets.QLabel(self.park_info_container)
             self.activities_label.setText("Activities")
-            self.activities_label.move(10, 10)
+            self.activities_label.move(10, 30)
 
-            self.maps_layout.addWidget(self.event_object)
+            self.maps_layout.addWidget(self.park_info_container)
+
+    def create_QLabel(self, container, object_name, text, x_coordinate, y_coordinate, width, length):
+        # Creates and associates QLabel to specified container
+        if container == "login_widget_container":
+            self.QLabel = QtWidgets.QLabel(self.login_widget_container)
+        elif container == "central_widget":
+            self.QLabel = QtWidgets.QLabel(self.central_widget)
+        elif container == "dashboard_tab":
+            self.QLabel = QtWidgets.QLabel(self.dashboard_tab)
+        elif container == "upcoming_events_tab":
+            self.QLabel = QtWidgets.QLabel(self.upcoming_events_tab)
+        elif container == "points_tab":
+            self.QLabel = QtWidgets.QLabel(self.points_tab)
+        elif container == "rewards_tab":
+            self.QLabel = QtWidgets.QLabel(self.rewards_tab)
+        elif container == "student_profile_tab":
+            self.QLabel = QtWidgets.QLabel(self.student_profile_tab)
+        elif container == "slideshow_description_groupbox":
+            self.QLabel = QtWidgets.QLabel(self.slideshow_description_groupbox)
+        elif container == "event":
+            self.QLabel = QtWidgets.QLabel(self.event_object)
+
+        # Administrator
+        elif container == "admin_dashboard_tab":
+            self.QLabel = QtWidgets.QLabel(self.admin_dashboard_tab)
+        elif container == "admin_events_tab":
+            self.QLabel = QtWidgets.QLabel(self.admin_events_tab)
+        elif container == "maps_tab":
+            self.QLabel = QtWidgets.QLabel(self.maps_tab)
+        elif container == "admin_statistics_tab":
+            self.QLabel = QtWidgets.QLabel(self.admin_statistics_tab)
+        elif container == "admin_student_view_tab":
+            self.QLabel = QtWidgets.QLabel(self.admin_student_view_tab)
+        elif container == "admin_statistics_tab":
+            self.QLabel = QtWidgets.QLabel(self.admin_statistics_tab)
+        elif container == "rand":
+            self.QLabel = QtWidgets.QLabel(self.rand_win_gb)
+        elif container == "top":
+            self.QLabel = QtWidgets.QLabel(self.top_win_gb)
+        self.QLabel.setWordWrap(True)
+        self.QLabel.setObjectName(object_name)
+        self.QLabel.setText(text)
+        # Geometry of QLabel is specified by the passed function parameters
+        self.QLabel.setGeometry(QtCore.QRect(x_coordinate, y_coordinate, width, length))
+        return self.QLabel
 
     def create_QScrollArea(self, container, object_name, layout, x_coordinate, y_coordinate, fixed_width, min_length):
         self.scrollArea_object_container = QtWidgets.QWidget()
