@@ -126,8 +126,8 @@ class dash_screen(object):
         self.QandA_search_bar_icon = QtWidgets.QLabel(self.dash_tab)
         self.QandA_search_bar_icon.setPixmap(QtGui.QPixmap("resources/magnifyingIcon.png"))
         self.QandA_search_bar_icon.setScaledContents(True)
-        self.QandA_search_bar_icon.setFixedSize(28, 28)
-        self.QandA_search_bar_icon.move(250, 24)
+        self.QandA_search_bar_icon.setFixedSize(30, 30)
+        self.QandA_search_bar_icon.move(248, 24)
         self.QandA_search_bar_icon.show()
 
         self.searchbar = QtWidgets.QLineEdit(self.dash_tab)
