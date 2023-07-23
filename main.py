@@ -12,18 +12,18 @@ import location, dash, create_widgets
 class ui_main_window(object):
     def setup_window(self, main_window):
         main_window.setObjectName("main_window")
-        main_window.resize(850, 650)
+        main_window.resize(850, 690)
 
         self.status_bar = QtWidgets.QStatusBar(main_window)
         self.status_bar.setObjectName("status_bar")
         main_window.setStatusBar(self.status_bar)
 
         self.central_widget = QtWidgets.QWidget(main_window)
-        self.central_widget.resize(850, 650)
+        self.central_widget.resize(850, 690)
         self.central_widget.setObjectName("display")
 
         self.tab_widget = QtWidgets.QTabWidget(self.central_widget)
-        self.tab_widget.resize(850, 650)
+        self.tab_widget.resize(850, 690)
 
         self.dash_tab = QtWidgets.QWidget()
         self.dash_tab.setObjectName("tab1")

@@ -14,10 +14,17 @@ class dash_screen(object):
         self.control_dashboard()
 
     def control_dashboard(self):
+        self.main_logo = QtWidgets.QLabel(self.dash_tab)
+        self.pixmap = QtGui.QPixmap('logo.png')
+        self.main_logo.setPixmap(self.pixmap)
+        self.main_logo.setScaledContents(True)
+        self.main_logo.resize(220, 70)
+        self.main_logo.move(12, 5)
+
         self.groupbox = QtWidgets.QGroupBox(self.dash_tab)
         self.groupbox.setObjectName("GroupBox_Dash")
         self.groupbox.resize(220, 540)
-        self.groupbox.move(12, 40)
+        self.groupbox.move(12, 80)
 
         self.filters_label = QtWidgets.QLabel(self.groupbox)
         self.filters_label.setText("Filter By:")
@@ -116,13 +123,28 @@ class dash_screen(object):
         self.distance_dropdown.resize(140, 40)
         self.distance_dropdown.move(70, 200)
 
+        self.QandA_search_bar_icon = QtWidgets.QLabel(self.dash_tab)
+        self.QandA_search_bar_icon.setPixmap(QtGui.QPixmap("resources/magnifyingIcon.png"))
+        self.QandA_search_bar_icon.setScaledContents(True)
+        self.QandA_search_bar_icon.setFixedSize(28, 28)
+        self.QandA_search_bar_icon.move(250, 24)
+        self.QandA_search_bar_icon.show()
+
         self.searchbar = QtWidgets.QLineEdit(self.dash_tab)
-        self.searchbar.resize(300, 30)
-        self.searchbar.move(275, 5)
+        self.searchbar.resize(430, 33)
+        self.searchbar.move(284, 22)
+
+        self.filter_dropdown = QtWidgets.QComboBox(self.dash_tab)
+        self.filter_dropdown.setObjectName("Features_Dropdown")
+        self.filter_dropdown.addItem("Filter By:")
+        self.filter_dropdown.addItem("Rating")
+        self.filter_dropdown.addItem("Popularity")
+        self.filter_dropdown.resize(118, 30)
+        self.filter_dropdown.move(720, 24)
 
         self.map_container = QtWidgets.QGroupBox(self.dash_tab)
-        self.map_container.setGeometry(QtCore.QRect(244, 40, 595, 540))
-        self.maps_objects = self.create_QScrollArea("dash_tab", "maps_QScrollArea", "vertical_layout", 244, 40, 595, 540)
+        self.map_container.setGeometry(QtCore.QRect(244, 60, 595, 560))
+        self.maps_objects = self.create_QScrollArea("dash_tab", "maps_QScrollArea", "vertical_layout", 244, 60, 595, 560)
         self.maps = self.maps_objects[0]
         self.maps_layout = self.maps_objects[1]
         self.maps_scrollArea = self.maps_objects[2]
