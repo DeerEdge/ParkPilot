@@ -1,3 +1,5 @@
+import webbrowser
+
 from PyQt5 import QtWidgets
 from PyQt5 import QtGui, QtCore, QtWidgets
 import sqlite3
@@ -71,6 +73,7 @@ class dash_screen(object):
         self.state_dropdown.addItem("Wyoming")
         self.state_dropdown.resize(140, 40)
         self.state_dropdown.move(70, 50)
+
 
         self.features_label = QtWidgets.QLabel(self.groupbox)
         self.features_label.setText("Aspects:")
@@ -153,6 +156,8 @@ class dash_screen(object):
         self.maps_scrollArea.setWidget(self.maps)
         self.maps_scrollArea.verticalScrollBar().setSliderPosition(0)
 
+
+
     def connect_and_retrieve_all(self, db_file, table_name):
         conn = sqlite3.connect(db_file)
         cur = conn.cursor()
@@ -162,24 +167,18 @@ class dash_screen(object):
 
         return rows
 
+    # def convertToParkData(self, rows):
+    #     for row in rows:
+    #         data.id = row[0]
+
     def populate_with_all(self):
         park_list = self.connect_and_retrieve_all('identifier.sqlite', 'PARK_NAMES')
         print(park_list)
+        global indiv_park
         for indiv_park in park_list:
             self.park_info_container = QtWidgets.QGroupBox(self.maps)
             self.park_info_container.setFixedSize(568, 200)
             self.park_info_container.setLayout(QtWidgets.QVBoxLayout())
-
-            # url = str(indiv_park[-1])
-            # # data = urllib(url).read()
-            # # pixmap = QPixmap()
-            # # pixmap.loadFromData(data)
-            # image = QImage()
-            # image.loadFromData(requests.get(url).content)
-            # self.attraction_image = QtWidgets.QLabel(self.park_info_container)
-            # self.attraction_image.setPixmap(QPixmap(image))
-            # self.attraction_image.setFixedSize(220, 220)
-            # self.attraction_image.show()
 
             self.park_img = QtWidgets.QLabel(self.park_info_container)
             image_address = "assets/0 - Acadia.jpeg"
@@ -201,6 +200,9 @@ class dash_screen(object):
             self.website_button = QtWidgets.QToolButton(self.park_info_container)
             self.website_button.setGeometry(531, 50, 32, 32)
             self.website_button.setText("↗︎")
+            self.website_button.clicked.connect(lambda: webbrowser.open(indiv_park[6]))
+            print(indiv_park[6])
+
 
             self.resource1_button = QtWidgets.QToolButton(self.park_info_container)
             self.resource1_button.setGeometry(531, 85, 32, 32)
@@ -215,6 +217,10 @@ class dash_screen(object):
             self.resource3_button.setText("↗︎")
 
             self.maps_layout.addWidget(self.park_info_container)
+
+    def link(self):
+        url = QtCore.QUrl(indiv_park[6])
+        QtGui.QDesktopServices.openUrl(url)
 
     def create_QLabel(self, container, object_name, text, x_coordinate, y_coordinate, width, length):
         # Creates and associates QLabel to specified container
@@ -272,3 +278,4 @@ class dash_screen(object):
             self.scrollArea_object_container.setLayout(self.scroll_grid_layout)
             self.QScrollArea.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
             return [self.scrollArea_object_container, self.scroll_grid_layout, self.QScrollArea]
+
