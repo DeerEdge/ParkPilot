@@ -156,8 +156,6 @@ class dash_screen(object):
         self.maps_scrollArea.setWidget(self.maps)
         self.maps_scrollArea.verticalScrollBar().setSliderPosition(0)
 
-
-
     def connect_and_retrieve_all(self, db_file, table_name):
         conn = sqlite3.connect(db_file)
         cur = conn.cursor()
@@ -173,15 +171,15 @@ class dash_screen(object):
 
     def populate_with_all(self):
         park_list = self.connect_and_retrieve_all('identifier.sqlite', 'PARK_NAMES')
+        # park_list = park_list[0:2]
         print(park_list)
-        global indiv_park
+        # global indiv_park
         for indiv_park in park_list:
             self.park_info_container = QtWidgets.QGroupBox(self.maps)
             self.park_info_container.setFixedSize(568, 200)
             self.park_info_container.setLayout(QtWidgets.QVBoxLayout())
-
             self.park_img = QtWidgets.QLabel(self.park_info_container)
-            image_address = "assets/0 - Acadia.jpeg"
+            image_address = ["assets/0 - Acadia.jpeg", "assets/1 - Arches.jpeg"]
             self.park_img.setPixmap(QtGui.QPixmap(image_address))
             self.park_img.setScaledContents(True)
             self.park_img.move(10, 10)
@@ -200,7 +198,9 @@ class dash_screen(object):
             self.website_button = QtWidgets.QToolButton(self.park_info_container)
             self.website_button.setGeometry(531, 50, 32, 32)
             self.website_button.setText("↗︎")
-            self.website_button.clicked.connect(lambda: webbrowser.open(indiv_park[6]))
+            self.website_url = indiv_park[6]
+            self.website_button.clicked.connect(lambda: self.link())
+            # self.website_button.clicked.connect(lambda: webbrowser.open(self.website_url))
             print(indiv_park[6])
 
 
@@ -219,7 +219,8 @@ class dash_screen(object):
             self.maps_layout.addWidget(self.park_info_container)
 
     def link(self):
-        url = QtCore.QUrl(indiv_park[6])
+        print('link clicked')
+        url = QtCore.QUrl(self.website_url)
         QtGui.QDesktopServices.openUrl(url)
 
     def create_QLabel(self, container, object_name, text, x_coordinate, y_coordinate, width, length):
